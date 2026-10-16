@@ -12,7 +12,7 @@
         "defaultPrompt": [
           "Which SolarSENS account am I using?",
           "Which solar Plants can I access?",
-          "Show yesterday\u2019s performance for my Plant."
+          "Show yesterday’s performance for my Plant."
         ],
         "developerName": "AVA",
         "category": "Data & Analytics",
@@ -80,12 +80,11 @@
             {
               "description": "Use a dedicated reviewer account with sample Plants. Sign in through OAuth. Run the catalog case first; use only returned Plant IDs. No production credentials or private data belong in the package. Purpose: Read daily performance.",
               "expected_behavior": "Resolve the selected Plant timezone from its overview; if absent, ask for it before querying. Use the selected plantId, yesterday at local midnight as inclusive start and today at local midnight as exclusive end, with explicit offsets and timezone. Report returned values and units; preserve nulls and report missing rows without inventing values.",
-              "prompt": "Show yesterday\u2019s yield and performance ratio for that Plant.",
+              "prompt": "Show yesterday’s yield and performance ratio for that Plant.",
               "tools_triggered": "get_plant_overview, get_plant_daily_performance"
             }
           ]
-        },
-        "demo_recording_url": "https://drive.google.com/file/d/1Ju3UwGGHbKwC7CTjSPKKYbMO9DeJV5Ju/view"
+        }
       }
     }
   },
