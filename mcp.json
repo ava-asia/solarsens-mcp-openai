@@ -1,0 +1,25 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "solarsens": {
+      "type": "streamable-http",
+      "url": "https://mcp.solarsens.co/mcp",
+      "extensions": {
+        "com.openai": {
+          "auth": {
+            "type": "oauth",
+            "client": {
+              "mode": "dcr"
+            },
+            "baseScopes": [
+              "read:data"
+            ],
+            "defaultScopes": [
+              "read:data"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

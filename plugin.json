@@ -1,0 +1,94 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "author": {
+    "email": "support@solarsens.co",
+    "name": "AVA",
+    "url": "https://www.avaasia.co/"
+  },
+  "description": "Read-only access to authorized SolarSENS Plants and monitoring data.",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "defaultPrompt": [
+          "Which SolarSENS account am I using?",
+          "Which solar Plants can I access?",
+          "Show yesterday\u2019s performance for my Plant."
+        ],
+        "developerName": "AVA",
+        "category": "Data & Analytics",
+        "capabilities": [
+          "Interactive",
+          "Read"
+        ],
+        "displayName": "SolarSENS",
+        "longDescription": "Connect SolarSENS to identify the account in use, find the solar Plants it can access, inspect Plant details, devices, and alarms, and read daily performance and monitoring data. Five Skills give guided checks: Plant performance review, string fault review, daily portfolio check, alarm triage, and missing value check. Sign in through SolarSENS MCP OAuth. Access follows your account permissions. The plugin is read-only and cannot control equipment, acknowledge alarms, or create work orders.",
+        "shortDescription": "Read-only solar monitoring",
+        "websiteURL": "https://www.avaasia.co/",
+        "logo": "./assets/solarsens.png",
+        "composerIcon": "./assets/solarsens.png",
+        "supportURL": "https://docs.solarsens.co/plugin/support/",
+        "privacyPolicyURL": "https://docs.solarsens.co/plugin/privacy/",
+        "termsOfServiceURL": "https://docs.solarsens.co/plugin/terms/"
+      },
+      "publication": {
+        "countries": [],
+        "release_notes": "This version adds five Skills for guided checks: Plant performance review, string fault review, daily portfolio check, alarm triage, and missing value check. The category is now Data & Analytics. Each tool reads only the Plants of your account. The plugin stays read-only."
+      },
+      "review": {
+        "commerce": false,
+        "commerce_description": "The plugin does not involve purchases or payments.",
+        "test_cases": {
+          "negative": [
+            {
+              "description": "Explain that the plugin is read-only and cannot control equipment. Do not invoke any SolarSENS tool for this request or claim a change was made.",
+              "prompt": "Turn off the inverters at that Plant."
+            },
+            {
+              "description": "Explain that alarm acknowledgement is not supported. Do not invoke any SolarSENS tool for this request or claim a change was made.",
+              "prompt": "Acknowledge all alarms at that Plant."
+            },
+            {
+              "description": "Explain that work-order creation is not supported. Do not invoke any SolarSENS tool for this request or claim a change was made.",
+              "prompt": "Create a maintenance work order for that Plant."
+            }
+          ],
+          "positive": [
+            {
+              "description": "Use a dedicated reviewer account with sample Plants. Sign in through OAuth. Run the catalog case first; use only returned Plant IDs. No production credentials or private data belong in the package. Purpose: List authorized Plants.",
+              "expected_behavior": "Call with no arguments. Show only returned Plants; if empty, explain that the account has no accessible Plants. Do not probe names or IDs.",
+              "prompt": "Which solar Plants can I access?",
+              "tools_triggered": "list_accessible_plants"
+            },
+            {
+              "description": "Use a dedicated reviewer account with sample Plants. Sign in through OAuth. Run the catalog case first; use only returned Plant IDs. No production credentials or private data belong in the package. Purpose: Find a named Plant.",
+              "expected_behavior": "Prerequisite: the reviewer selects one exact name from the catalog and supplies it in conversation. Pass that name as query. Show matching accessible results; clarify multiple matches.",
+              "prompt": "Find the Plant whose name I selected from the previous list.",
+              "tools_triggered": "search_plants"
+            },
+            {
+              "description": "Use a dedicated reviewer account with sample Plants. Sign in through OAuth. Run the catalog case first; use only returned Plant IDs. No production credentials or private data belong in the package. Purpose: Read Plant identity.",
+              "expected_behavior": "Prerequisite: one Plant has been selected in the preceding case. Pass its returned ID as plantId. Report the returned timezone, or state that it is missing. Never default a timezone.",
+              "prompt": "What is the timezone of that Plant?",
+              "tools_triggered": "get_plant_overview"
+            },
+            {
+              "description": "Use a dedicated reviewer account with sample Plants. Sign in through OAuth. Run the catalog case first; use only returned Plant IDs. No production credentials or private data belong in the package. Purpose: Read device catalog.",
+              "expected_behavior": "Prerequisite: retain the selected Plant ID. Pass it as plantId with no nameQuery or deviceType filter. Summarize only returned devices and types, or report an empty catalog.",
+              "prompt": "List the devices at that Plant.",
+              "tools_triggered": "list_devices"
+            },
+            {
+              "description": "Use a dedicated reviewer account with sample Plants. Sign in through OAuth. Run the catalog case first; use only returned Plant IDs. No production credentials or private data belong in the package. Purpose: Read daily performance.",
+              "expected_behavior": "Resolve the selected Plant timezone from its overview; if absent, ask for it before querying. Use the selected plantId, yesterday at local midnight as inclusive start and today at local midnight as exclusive end, with explicit offsets and timezone. Report returned values and units; preserve nulls and report missing rows without inventing values.",
+              "prompt": "Show yesterday\u2019s yield and performance ratio for that Plant.",
+              "tools_triggered": "get_plant_overview, get_plant_daily_performance"
+            }
+          ]
+        },
+        "demo_recording_url": "https://drive.google.com/file/d/1Ju3UwGGHbKwC7CTjSPKKYbMO9DeJV5Ju/view"
+      }
+    }
+  },
+  "name": "solarsens-mcp",
+  "version": "0.1.6"
+}
