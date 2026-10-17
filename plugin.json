@@ -33,7 +33,7 @@
       },
       "publication": {
         "countries": [],
-        "release_notes": "This version adds a setup Skill. After you install the plugin, setup checks your sign-in and Plant access. If your account has no access, it tells you to contact your AVA admin. Then it suggests three guided checks for your work. The plugin stays read-only."
+        "release_notes": "This version adds a setup Skill. After you install the plugin, setup checks your sign-in and Plant access. If your account has no access, it tells you to contact your AVA admin. Then it suggests three guided checks for your work. In Codex CLI, setup gives the exact sign-in command. The plugin stays read-only."
       },
       "review": {
         "commerce": false,
@@ -90,5 +90,5 @@
     }
   },
   "name": "solarsens-mcp",
-  "version": "0.1.7"
+  "version": "0.1.8"
 }

@@ -11,7 +11,7 @@ Setup is a short conversation, not a form. Write a few lines in each message and
 
 ## Procedure
 
-1. Sign in. If no SolarSENS tools are listed, SolarSENS is not connected. Tell the user how to sign in, then stop. Claude Code: run /mcp and sign in to SolarSENS. Codex CLI: run codex mcp login with the SolarSENS server name; codex mcp list shows the name. ChatGPT or another app: sign in to SolarSENS from the plugin settings, then start a new chat.
+1. Sign in. If no SolarSENS tools are listed, SolarSENS is not connected. Tell the user how to sign in, then stop. Claude Code: run /mcp and sign in to SolarSENS. Codex CLI: run codex mcp login solarsens. If Codex does not find that server, run codex mcp list and use the SolarSENS name it shows. ChatGPT or another app: sign in to SolarSENS from the plugin settings, then start a new chat.
 2. Account. Call get_profile with no arguments. If it fails with a sign-in error, ask the user to finish sign-in in the app, then call it again. If the account is not linked to an active SolarSENS user, tell the user to contact their AVA admin to link the account, then stop.
 3. Plants. Call list_accessible_plants with no arguments. If no Plants are returned, tell the user that the account has no Plant access and to contact their AVA admin, then stop.
 4. Welcome. In one message: SolarSENS reads live and daily data for solar Plants, such as yield, performance ratio, devices, strings, and alarms. It cannot change equipment, alarms, or work orders. Give the account label and the number of Plants. Name at most three Plants. Ask what the user does with these Plants, with short examples: O&M for a site, asset owner, performance analyst.
