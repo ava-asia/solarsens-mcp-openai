@@ -8,6 +8,7 @@
   "description": "Read-only access to authorized SolarSENS Plants and monitoring data.",
   "extensions": {
     "com.openai": {
+      "onboardingSkill": "./skills/setup/SKILL.md",
       "interface": {
         "defaultPrompt": [
           "Which SolarSENS account am I using?",
@@ -21,7 +22,7 @@
           "Read"
         ],
         "displayName": "SolarSENS",
-        "longDescription": "Connect SolarSENS to identify the account in use, find the solar Plants it can access, inspect Plant details, devices, and alarms, and read daily performance and monitoring data. Five Skills give guided checks: Plant performance review, string fault review, daily portfolio check, alarm triage, and missing value check. Sign in through SolarSENS MCP OAuth. Access follows your account permissions. The plugin is read-only and cannot control equipment, acknowledge alarms, or create work orders.",
+        "longDescription": "Connect SolarSENS to identify the account in use, find the solar Plants it can access, inspect Plant details, devices, and alarms, and read daily performance and monitoring data. Five Skills give guided checks: Plant performance review, string fault review, daily portfolio check, alarm triage, and missing value check. A setup Skill checks your sign-in and Plant access and suggests where to start. Sign in through SolarSENS MCP OAuth. Access follows your account permissions. The plugin is read-only and cannot control equipment, acknowledge alarms, or create work orders.",
         "shortDescription": "Read-only solar monitoring",
         "websiteURL": "https://www.avaasia.co/",
         "logo": "./assets/solarsens.png",
@@ -32,7 +33,7 @@
       },
       "publication": {
         "countries": [],
-        "release_notes": "This version adds five Skills for guided checks: Plant performance review, string fault review, daily portfolio check, alarm triage, and missing value check. The category is now Data & Analytics. Each tool reads only the Plants of your account. The plugin stays read-only."
+        "release_notes": "This version adds a setup Skill. After you install the plugin, setup checks your sign-in and Plant access. If your account has no access, it tells you to contact your AVA admin. Then it suggests three guided checks for your work. The plugin stays read-only."
       },
       "review": {
         "commerce": false,
@@ -89,5 +90,5 @@
     }
   },
   "name": "solarsens-mcp",
-  "version": "0.1.6"
+  "version": "0.1.7"
 }

@@ -3,7 +3,8 @@
 SolarSENS is the solar monitoring platform of AVA. This repository holds the
 plugin package that AVA submits to the ChatGPT plugin directory. It gives
 ChatGPT read-only access to the solar Plants that your SolarSENS account can
-see, and five Skills that guide common checks.
+see, five Skills that guide common checks, and a setup Skill that ChatGPT
+runs after install.
 
 ## What the package contains
 
@@ -11,8 +12,9 @@ see, and five Skills that guide common checks.
   `extensions["com.openai"]`, the review test cases, and the release notes.
 - `mcp.json`: one remote MCP server, `https://mcp.solarsens.co/mcp`, over
   Streamable HTTP with OAuth and dynamic client registration.
-- `skills/`: five Skills. Plant performance review, string fault review, daily
-  portfolio check, alarm triage, and missing value check.
+- `skills/`: six Skills. Plant performance review, string fault review, daily
+  portfolio check, alarm triage, missing value check, and setup. The manifest
+  names setup as `onboardingSkill`.
 - `assets/solarsens.png`: the logo.
 
 There is no local code, hook, or script in this package.
