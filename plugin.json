@@ -2,8 +2,8 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "author": {
     "email": "support@solarsens.co",
-    "name": "AVA",
-    "url": "https://www.avaasia.co/"
+    "name": "AVA Asia Pte. Ltd.",
+    "url": "https://ai.solarsens.co/"
   },
   "description": "Read-only access to authorized SolarSENS Plants and monitoring data.",
   "extensions": {
@@ -11,20 +11,20 @@
       "onboardingSkill": "./skills/setup/SKILL.md",
       "interface": {
         "defaultPrompt": [
-          "Which SolarSENS account am I using?",
+          "Which SolarSENS Plants need attention today?",
           "Which solar Plants can I access?",
           "Show yesterday’s performance for my Plant."
         ],
-        "developerName": "AVA",
+        "developerName": "AVA Asia Pte. Ltd.",
         "category": "Data & Analytics",
         "capabilities": [
           "Interactive",
           "Read"
         ],
         "displayName": "SolarSENS",
-        "longDescription": "Connect SolarSENS to identify the account in use, find the solar Plants it can access, inspect Plant details, devices, and alarms, and read daily performance and monitoring data. Five Skills give guided checks: Plant performance review, string fault review, daily portfolio check, alarm triage, and missing value check. A setup Skill checks your sign-in and Plant access and suggests where to start. Sign in through SolarSENS MCP OAuth. Access follows your account permissions. The plugin is read-only and cannot control equipment, acknowledge alarms, or create work orders.",
+        "longDescription": "Connect SolarSENS to find the solar Plants your account can access, inspect Plant details, devices, and alarms, and read daily performance and monitoring data. Five Skills give guided checks: Plant performance review, string fault review, daily portfolio check, alarm triage, and missing value check. A setup Skill checks your sign-in and Plant access and suggests where to start. Sign in through Cloudflare using an allowed email; a first connection can link it to your existing SolarSENS account. Access follows your account permissions. The plugin is read-only and cannot control equipment, acknowledge alarms, or create work orders.",
         "shortDescription": "Read-only solar monitoring",
-        "websiteURL": "https://www.avaasia.co/",
+        "websiteURL": "https://ai.solarsens.co/",
         "logo": "./assets/solarsens.png",
         "composerIcon": "./assets/solarsens.png",
         "supportURL": "https://docs.solarsens.co/plugin/support/",
@@ -33,7 +33,7 @@
       },
       "publication": {
         "countries": [],
-        "release_notes": "This version adds a setup Skill. After you install the plugin, setup checks your sign-in and Plant access. If your account has no access, it tells you to contact your AVA admin. Then it suggests three guided checks for your work. In Codex CLI, setup gives the exact sign-in command. The plugin stays read-only."
+        "release_notes": "SolarSENS now uses the production Cloudflare Access connector for a simpler email-code sign-in in ChatGPT and Claude. New users can securely link the verified Cloudflare identity to their existing SolarSENS account. The listing now shows the official SolarSENS logo, AVA Asia Pte. Ltd. as the developer, and the SolarSENS AI website. The plugin remains read-only."
       },
       "review": {
         "commerce": false,
@@ -90,5 +90,5 @@
     }
   },
   "name": "solarsens-mcp",
-  "version": "0.1.8"
+  "version": "0.1.11"
 }

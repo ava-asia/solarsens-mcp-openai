@@ -3,23 +3,7 @@
   "mcpServers": {
     "solarsens": {
       "type": "streamable-http",
-      "url": "https://mcp.solarsens.co/mcp",
-      "extensions": {
-        "com.openai": {
-          "auth": {
-            "type": "oauth",
-            "client": {
-              "mode": "dcr"
-            },
-            "baseScopes": [
-              "read:data"
-            ],
-            "defaultScopes": [
-              "read:data"
-            ]
-          }
-        }
-      }
+      "url": "https://connect.solarsens.co/mcp"
     }
   }
 }
