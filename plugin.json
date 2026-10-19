@@ -33,7 +33,7 @@
       },
       "publication": {
         "countries": [],
-        "release_notes": "SolarSENS now uses the production Cloudflare Access connector for a simpler email-code sign-in in ChatGPT and Claude. New users can securely link the verified Cloudflare identity to their existing SolarSENS account. The listing now shows the official SolarSENS logo, AVA Asia Pte. Ltd. as the developer, and the SolarSENS AI website. The plugin remains read-only."
+        "release_notes": "SolarSENS now uses one direct production address, mcp.solarsens.co, for ChatGPT and Claude. Sign in through Cloudflare with an allowed email; first-time users can link that verified identity to their existing SolarSENS account. The managed portal remains separate at connect.solarsens.co. The plugin remains read-only."
       },
       "review": {
         "commerce": false,
@@ -90,5 +90,5 @@
     }
   },
   "name": "solarsens-mcp",
-  "version": "0.1.11"
+  "version": "0.1.12"
 }

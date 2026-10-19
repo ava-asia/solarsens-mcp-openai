@@ -3,7 +3,7 @@
   "mcpServers": {
     "solarsens": {
       "type": "streamable-http",
-      "url": "https://connect.solarsens.co/mcp"
+      "url": "https://mcp.solarsens.co/mcp"
     }
   }
 }
