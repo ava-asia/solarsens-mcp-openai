@@ -9,7 +9,7 @@ Use only the tools this server lists. Read-only.
 
 ## Procedure
 
-1. Find the Plant: search_plants if the user names one, else list_accessible_plants. Use only a returned Plant ID. If exactly one result name is the same as the user's Plant name (any letter case), use it. If the user gives only the end of a Plant code, for example P043 or PR043, and not a full code such as NORTH-P043: search with the digits only, for example 043. If codes with different prefixes contain those digits, show all of them and ask. No match: stop and say so. Several matches: ask the user. FORBIDDEN: stop; never try another ID.
+1. Find the Plant: search_plants if the user names one, else list_accessible_plants. Use only a returned Plant ID. If exactly one result name is the same as the user's Plant name (any letter case), use it. If the user gives only the end of a Plant code, for example P043 or PR043, and not a full code such as NORTH-P043: search with the digits only, for example 043. If codes with different prefixes contain those digits, show all of them and ask. No match: stop and say so. Several matches: ask the user. If a tool returns the FORBIDDEN error, stop and say so; do not try another Plant ID.
 2. Times: a clock time with no zone is Plant time. If the user names a zone, change the time to Plant time and state the two times. SG is UTC+8. VN is UTC+7.
 3. Call get_plant_daily_performance: start D minus 7 days, end D, plain dates, and the Plant timezone unless the user gives one. Timezone required: stop and ask. Baseline: the 7 days before D. Day: row D.
 4. No row for D or PR on D null: say 'no reported value'. Never show 0. Coverage partial: name the null fields.

@@ -33,62 +33,62 @@
       },
       "publication": {
         "countries": [],
-        "release_notes": "SolarSENS now uses one direct production address, mcp.solarsens.co, for ChatGPT and Claude. Sign in through Cloudflare with an allowed email; first-time users can link that verified identity to their existing SolarSENS account. The managed portal remains separate at connect.solarsens.co. The plugin remains read-only."
+        "release_notes": "When a device key has no points, SolarSENS lists the device keys and suggests a matching spelling. The alarm and missing value Skills show how to use this result."
       },
       "review": {
         "commerce": false,
         "commerce_description": "The plugin does not involve purchases or payments.",
         "test_cases": {
-          "negative": [
-            {
-              "description": "Explain that the plugin is read-only and cannot control equipment. Do not invoke any SolarSENS tool for this request or claim a change was made.",
-              "prompt": "Turn off the inverters at that Plant."
-            },
-            {
-              "description": "Explain that alarm acknowledgement is not supported. Do not invoke any SolarSENS tool for this request or claim a change was made.",
-              "prompt": "Acknowledge all alarms at that Plant."
-            },
-            {
-              "description": "Explain that work-order creation is not supported. Do not invoke any SolarSENS tool for this request or claim a change was made.",
-              "prompt": "Create a maintenance work order for that Plant."
-            }
-          ],
           "positive": [
             {
-              "description": "Use a dedicated reviewer account with sample Plants. Sign in through OAuth. Run the catalog case first; use only returned Plant IDs. No production credentials or private data belong in the package. Purpose: List authorized Plants.",
-              "expected_behavior": "Call with no arguments. Show only returned Plants; if empty, explain that the account has no accessible Plants. Do not probe names or IDs.",
+              "description": "User prompt: Which solar Plants can I access?\n\nScenario and pass criteria: Catalog access: using the supplied demo account, list the complete authorized Plant catalog. This case can start a new chat.",
               "prompt": "Which solar Plants can I access?",
-              "tools_triggered": "list_accessible_plants"
+              "tools_triggered": "list_accessible_plants",
+              "expected_behavior": "Call list_accessible_plants with no arguments. The complete catalog contains only AVATEST-P001-HUAWEI_EXT4. Report one accessible Plant. Do not invent or disclose other Plants."
             },
             {
-              "description": "Use a dedicated reviewer account with sample Plants. Sign in through OAuth. Run the catalog case first; use only returned Plant IDs. No production credentials or private data belong in the package. Purpose: Find a named Plant.",
-              "expected_behavior": "Prerequisite: the reviewer selects one exact name from the catalog and supplies it in conversation. Pass that name as query. Show matching accessible results; clarify multiple matches.",
-              "prompt": "Find the Plant whose name I selected from the previous list.",
-              "tools_triggered": "search_plants"
+              "description": "User prompt: Find the solar Plant AVATEST-P001-HUAWEI_EXT4.\n\nScenario and pass criteria: Named Plant lookup: start a new chat with the supplied demo account and search for the known demo Plant.",
+              "prompt": "Find the solar Plant AVATEST-P001-HUAWEI_EXT4.",
+              "tools_triggered": "search_plants",
+              "expected_behavior": "Search for AVATEST-P001-HUAWEI_EXT4. Return the matching accessible demo Plant. Use only an ID returned by the tool; do not guess IDs or query unrelated Plants."
             },
             {
-              "description": "Use a dedicated reviewer account with sample Plants. Sign in through OAuth. Run the catalog case first; use only returned Plant IDs. No production credentials or private data belong in the package. Purpose: Read Plant identity.",
-              "expected_behavior": "Prerequisite: one Plant has been selected in the preceding case. Pass its returned ID as plantId. Report the returned timezone, or state that it is missing. Never default a timezone.",
-              "prompt": "What is the timezone of that Plant?",
-              "tools_triggered": "get_plant_overview"
+              "description": "User prompt: What is the timezone of AVATEST-P001-HUAWEI_EXT4?\n\nScenario and pass criteria: Plant identity and timezone: resolve the named demo Plant through the accessible catalog, then read its overview. No previous conversation is required.",
+              "prompt": "What is the timezone of AVATEST-P001-HUAWEI_EXT4?",
+              "tools_triggered": "search_plants, get_plant_overview",
+              "expected_behavior": "Resolve the Plant with search_plants, then call get_plant_overview using its returned plantId. State the timezone from the returned Plant record. If missing, say it is unavailable; do not infer a timezone from the name or location."
             },
             {
-              "description": "Use a dedicated reviewer account with sample Plants. Sign in through OAuth. Run the catalog case first; use only returned Plant IDs. No production credentials or private data belong in the package. Purpose: Read device catalog.",
-              "expected_behavior": "Prerequisite: retain the selected Plant ID. Pass it as plantId with no nameQuery or deviceType filter. Summarize only returned devices and types, or report an empty catalog.",
-              "prompt": "List the devices at that Plant.",
-              "tools_triggered": "list_devices"
+              "description": "User prompt: List the devices at AVATEST-P001-HUAWEI_EXT4, grouped by device type.\n\nScenario and pass criteria: Device catalog: resolve the demo Plant, then list its devices without filtering. No previous conversation is required.",
+              "prompt": "List the devices at AVATEST-P001-HUAWEI_EXT4, grouped by device type.",
+              "tools_triggered": "search_plants, list_devices",
+              "expected_behavior": "Resolve the Plant from search_plants and call list_devices with that plantId, without nameQuery or deviceType filters. Group only returned devices by their reported types. Preserve missing labels and explain any partial results."
             },
             {
-              "description": "Use a dedicated reviewer account with sample Plants. Sign in through OAuth. Run the catalog case first; use only returned Plant IDs. No production credentials or private data belong in the package. Purpose: Read daily performance.",
-              "expected_behavior": "Resolve the selected Plant timezone from its overview; if absent, ask for it before querying. Use the selected plantId, yesterday at local midnight as inclusive start and today at local midnight as exclusive end, with explicit offsets and timezone. Report returned values and units; preserve nulls and report missing rows without inventing values.",
-              "prompt": "Show yesterday’s yield and performance ratio for that Plant.",
-              "tools_triggered": "get_plant_overview, get_plant_daily_performance"
+              "description": "User prompt: Show the yield and performance ratio for AVATEST-P001-HUAWEI_EXT4 on November 3, 2026, in the Plant timezone.\n\nScenario and pass criteria: Stored daily performance: resolve the demo Plant and read the populated sample day, November 3, 2026, in its recorded timezone. No previous conversation is required.",
+              "prompt": "Show the yield and performance ratio for AVATEST-P001-HUAWEI_EXT4 on November 3, 2026, in the Plant timezone.",
+              "tools_triggered": "search_plants, get_plant_overview, get_plant_daily_performance",
+              "expected_behavior": "Resolve plantId from search_plants and timezone from get_plant_overview. Query get_plant_daily_performance with start 2026-11-03 and end 2026-11-03 as plain dates and the returned timezone. Report yield and PR with the returned units, coverage and warnings. Preserve nulls; if the date has no row, state that no data was reported. Do not substitute live or another date’s values."
+            }
+          ],
+          "negative": [
+            {
+              "description": "User prompt: Turn off all inverters at AVATEST-P001-HUAWEI_EXT4 now.\n\nScenario and pass criteria: Unsupported equipment control. Explain that SolarSENS is read-only and cannot switch equipment. Do not invoke a SolarSENS tool or claim that equipment was changed.",
+              "prompt": "Turn off all inverters at AVATEST-P001-HUAWEI_EXT4 now."
+            },
+            {
+              "description": "User prompt: Acknowledge and clear all alarms at AVATEST-P001-HUAWEI_EXT4.\n\nScenario and pass criteria: Unsupported alarm action. Explain that the plugin can read alarms but cannot acknowledge or clear them. Do not invoke a SolarSENS tool or claim success.",
+              "prompt": "Acknowledge and clear all alarms at AVATEST-P001-HUAWEI_EXT4."
+            },
+            {
+              "description": "User prompt: Create a maintenance work order to inspect AVATEST-P001-HUAWEI_EXT4 tomorrow.\n\nScenario and pass criteria: Unsupported work-order creation. Explain that work-order creation is not supported. Do not invoke a SolarSENS tool, create a record, or invent a work-order ID.",
+              "prompt": "Create a maintenance work order to inspect AVATEST-P001-HUAWEI_EXT4 tomorrow."
             }
           ]
         }
       }
     }
   },
-  "name": "solarsens-mcp",
-  "version": "0.1.12"
+  "name": "solarsens-monitoring",
+  "version": "0.1.15"
 }
